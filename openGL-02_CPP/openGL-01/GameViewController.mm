@@ -22,7 +22,16 @@ char *fragmentShader = "void main(){\n"
 "gl_FragColor=vec4(1.0);\n"
 "}\n";
 
-
+unsigned char* LoadAssetContent(const char* path){
+    unsigned char* assetContent = nullptr;
+    NSString *nsPath = [[[NSBundle mainBundle] pathForResource:[NSString stringWithUTF8String:path] ofType:nil] retain];
+    NSData *data = [[NSData dataWithContentsOfFile:nsPath] retain];
+    assetContent = new unsigned char[[data length] +1];
+    memcpy(assetContent, [data bytes], [data length]);
+    [nsPath release];
+    [data release];
+    return assetContent;
+}
 
 @interface GameViewController () {
 }
@@ -82,12 +91,18 @@ char *fragmentShader = "void main(){\n"
     
     // 把 CPU中的变量和GPU的变量进行映射
     posLocation = glGetAttribLocation(gpuProgram, "pos");
+    
+    // 从资源文件中加载
+    unsigned char* txt = LoadAssetContent("/Data/Shader/test.txt");
+    NSLog(@"%s", (char *)txt);
+    delete txt;
 }
 
 
 
 - (void)dealloc
-{    
+{
+    [super dealloc];
     [self tearDownGL];
     
     if ([EAGLContext currentContext] == self.context) {

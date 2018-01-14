@@ -10,6 +10,7 @@
 		AD7C0DCF200B2C8E00FA2788 /* Utils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AD7C0DCD200B2C8E00FA2788 /* Utils.cpp */; };
 		AD7C0DD2200B2E4C00FA2788 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AD7C0DD1200B2E4C00FA2788 /* OpenGLES.framework */; };
 		AD7C0DD4200B2E6500FA2788 /* GLKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AD7C0DD3200B2E6500FA2788 /* GLKit.framework */; };
+		AD7C0DD6200B333500FA2788 /* Data in Resources */ = {isa = PBXBuildFile; fileRef = AD7C0DD5200B331F00FA2788 /* Data */; };
 		ADAA76BE1E4C505700A9BF6A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = ADAA76BD1E4C505700A9BF6A /* main.m */; };
 		ADAA76C11E4C505700A9BF6A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = ADAA76C01E4C505700A9BF6A /* AppDelegate.m */; };
 		ADAA76C31E4C505700A9BF6A /* Shader.fsh in Resources */ = {isa = PBXBuildFile; fileRef = ADAA76C21E4C505700A9BF6A /* Shader.fsh */; };
@@ -25,6 +26,7 @@
 		AD7C0DCE200B2C8E00FA2788 /* Utils.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Utils.hpp; sourceTree = "<group>"; };
 		AD7C0DD1200B2E4C00FA2788 /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
 		AD7C0DD3200B2E6500FA2788 /* GLKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLKit.framework; path = System/Library/Frameworks/GLKit.framework; sourceTree = SDKROOT; };
+		AD7C0DD5200B331F00FA2788 /* Data */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Data; sourceTree = "<group>"; };
 		ADAA76B91E4C505700A9BF6A /* openGL-01.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "openGL-01.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		ADAA76BD1E4C505700A9BF6A /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		ADAA76BF1E4C505700A9BF6A /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -90,6 +92,7 @@
 		ADAA76BB1E4C505700A9BF6A /* openGL-01 */ = {
 			isa = PBXGroup;
 			children = (
+				AD7C0DD5200B331F00FA2788 /* Data */,
 				AD7C0DCC200B2C7E00FA2788 /* opengl */,
 				ADAA76BF1E4C505700A9BF6A /* AppDelegate.h */,
 				ADAA76C01E4C505700A9BF6A /* AppDelegate.m */,
@@ -173,6 +176,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AD7C0DD6200B333500FA2788 /* Data in Resources */,
 				ADAA76CB1E4C505700A9BF6A /* Main.storyboard in Resources */,
 				ADAA76C51E4C505700A9BF6A /* Shader.vsh in Resources */,
 				ADAA76CD1E4C505700A9BF6A /* Assets.xcassets in Resources */,
