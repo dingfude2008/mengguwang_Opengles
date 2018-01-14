@@ -73,8 +73,36 @@ GLuint CreateGPUProgram(const char* vsCode, const char* fscode)
     GLuint vsShader = CompileShader(GL_VERTEX_SHADER, vsCode);
     GLuint fsShder  = CompileShader(GL_FRAGMENT_SHADER, fscode);
     
+    // 创建程序
+    program = glCreateProgram();
     
+    // 连接 程序 和 shader
+    glAttachShader(program, vsShader);
+    glAttachShader(program, fsShder);
     
+    // 连接到GPU
+    glLinkProgram(program);
+    
+    // 检测是否连接成功
+    GLint programStatus = GL_FALSE;
+    
+    // 获取是否连接成功
+    glGetProgramiv(program, GL_LINK_STATUS, &programStatus);
+    
+    if (programStatus == GL_FALSE){
+        
+        printf("link program error!");
+        
+        char szBuffer[1024] = {0};
+        GLsizei logLen = 0;
+        
+        // 获取日志
+        glGetProgramInfoLog(program, 1024, &logLen, szBuffer);
+        
+        printf("link error: %s\n", szBuffer);
+        return 0;
+    }
+   
     return program;
 }
 
@@ -140,8 +168,7 @@ GLuint CreateGPUProgram(const char* vsCode, const char* fscode)
     
     glBindBuffer(GL_ARRAY_BUFFER, 0);
     
-    
-    
+    // 创建程序
     gpuProgram = CreateGPUProgram(vertexShader, fragmentShader);
 }
 
@@ -190,6 +217,28 @@ GLuint CreateGPUProgram(const char* vsCode, const char* fscode)
     
 }
 
+
+// 先激活 atrribute
+//glEnableVertexAttribArray(vbo);
+
+/*
+ 告诉attibute从哪里取值
+ indx          激活的 attribute
+ size          有多少个分量
+ type          是什么类型
+ normalized    需要不需要归一化， 就是是否需要转为 float   （如果 传入的是 byte , short 类型  就需要设置的 Gltrue）
+ stride        两个点之间的间距
+ ptr           从何处取值
+ 
+ */
+// glVertexAttribPointer(GLuint indx, GLint size, GLenum type, GLboolean normalized, GLsizei stride, const GLvoid *ptr)
+
+/*
+ 激活一个 attribute
+ glenable
+ glVertexAttribPointer
+ */
+
 - (void)glkView:(GLKView *)view drawInRect:(CGRect)rect
 {
     glClearColor(0.65f, 0.65f, 0.65f, 1.0f);
@@ -197,31 +246,10 @@ GLuint CreateGPUProgram(const char* vsCode, const char* fscode)
     
     // draw compont
     
-    
-    // 先激活 atrribute
-    glEnableVertexAttribArray(vbo);
-    
-    /*
-     告诉attibute从哪里取值
-     indx          激活的 attribute
-     size          有多少个分量
-     type          是什么类型
-     normalized    需要不需要归一化， 就是是否需要转为 float   （如果 传入的是 byte , short 类型  就需要设置的 Gltrue）
-     stride        两个点之间的间距
-     ptr           从何处取值
-     
-     */
-    // glVertexAttribPointer(GLuint indx, GLint size, GLenum type, GLboolean normalized, GLsizei stride, const GLvoid *ptr)
-    
-    
-    /*
-     
-         激活一个 attribute
-     
-         glenable
-     
-     
-     */
+    // draw call   --> 简称dc
+    // select program
+    // set up args
+    // invoke
     
 }
 
