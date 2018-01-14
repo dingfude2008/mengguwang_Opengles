@@ -11,22 +11,14 @@
 #import "Utils.hpp"
 
 GLuint vbo, gpuProgram;
-GLint posLocation;
+GLint posLocation, colorPosition;
+float color[] = { 0.4, 0.1, 0.2, 1.0 };
 
-char *vertexShader = "attribute vec3 pos;\n"
-"void main(){\n"
-"gl_Position=vec4(pos,1.0);\n"
-"}\n";
-
-char *fragmentShader = "void main(){\n"
-"gl_FragColor=vec4(1.0);\n"
-"}\n";
-
-unsigned char* LoadAssetContent(const char* path){
-    unsigned char* assetContent = nullptr;
+char* LoadAssetContent(const char* path){
+    char* assetContent = nullptr;
     NSString *nsPath = [[[NSBundle mainBundle] pathForResource:[NSString stringWithUTF8String:path] ofType:nil] retain];
     NSData *data = [[NSData dataWithContentsOfFile:nsPath] retain];
-    assetContent = new unsigned char[[data length] +1];
+    assetContent = new char[[data length] +1];
     memcpy(assetContent, [data bytes], [data length]);
     [nsPath release];
     [data release];
@@ -83,19 +75,19 @@ unsigned char* LoadAssetContent(const char* path){
         0.0f, 0.5f, 0.0f,
     };
     
-    
     vbo = CreateBufferObject(GL_ARRAY_BUFFER, sizeof(float) * 9, position, GL_STATIC_DRAW);
 
+    char *vsCode = LoadAssetContent("/Data/Shader/simple.vs");
+    char *fsCode = LoadAssetContent("/Data/Shader/simple.fs");
+    
     // 创建程序
-    gpuProgram = CreateGPUProgram(vertexShader, fragmentShader);
+    gpuProgram = CreateGPUProgram(vsCode, fsCode);
     
     // 把 CPU中的变量和GPU的变量进行映射
     posLocation = glGetAttribLocation(gpuProgram, "pos");
     
-    // 从资源文件中加载
-    unsigned char* txt = LoadAssetContent("/Data/Shader/test.txt");
-    NSLog(@"%s", (char *)txt);
-    delete txt;
+    // 从 程序中映射到变量
+    colorPosition = glGetUniformLocation(gpuProgram, "U_Color");
 }
 
 
@@ -179,6 +171,10 @@ unsigned char* LoadAssetContent(const char* path){
     // invoke          运行
     
     glUseProgram(gpuProgram);
+    
+    // 给这个变量赋值，方便传输到vs
+    glUniform4fv(colorPosition, 1, color);
+    
     glBindBuffer(GL_ARRAY_BUFFER, vbo);
     
     // 启动

@@ -22,6 +22,6 @@ GLuint CreateGPUProgram(const char* vsCode, const char* fscode);
 GLuint CreateBufferObject(GLenum objType, int objSize, void *data, GLenum usage);
 
 // 加载项目中的文件
-unsigned char* LoadAssetContent(const char* path);
+char* LoadAssetContent(const char* path);
 
 #endif /* Utils_hpp */
